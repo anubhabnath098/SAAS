@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1734071588002,
+      "tag": "0000_loud_wong",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1734071758312,
+      "tag": "0001_pink_black_bolt",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1734073793155,
+      "tag": "0002_sour_saracen",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1734191090439,
+      "tag": "0003_melodic_pandemic",
+      "breakpoints": true
+    }
+  ]
+}
