@@ -6,7 +6,7 @@ import { canRemoveBranding, canShowDiscountBanner } from "@/server/permissions";
 import { NextRequest, NextResponse } from "next/server";
 import { createElement } from "react";
 
-// export const runtime = "edge";
+export const runtime = "edge";
 
 export async function GET(req: NextRequest, { params }: { params: { productId: string } }) {
   if (req.method !== "GET") {
