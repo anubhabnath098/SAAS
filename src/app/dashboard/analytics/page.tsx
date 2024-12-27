@@ -14,7 +14,7 @@ import { createURL } from "@/lib/utils";
 import TimeZoneDropDownMenuItem from "../_component/TimeZoneDropDownMenuItem";
 import { useToast } from "@/hooks/use-toast";
 import { useUser } from "@clerk/nextjs";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Product } from "../page";
 import { subDays } from "date-fns";
 import { SQL, sql } from "drizzle-orm";
@@ -29,7 +29,15 @@ type ChartType = {
 }
 
 export default function AnalyticsPage(){
-    const { user } = useUser();
+    return(
+      <Suspense fallback = {<div>Loading analytics...</div>}>
+        <AnalyticsPageContent/>
+      </Suspense>
+    )
+}
+
+function AnalyticsPageContent(){
+  const { user } = useUser();
     const searchParams = useSearchParams();
     const userId = user?.id;
     
@@ -388,7 +396,7 @@ function getIntervalKey(interval: (typeof CHART_INTERVALS)[keyof typeof CHART_IN
     );
   }
 
-  export const CHART_INTERVALS = {
+const CHART_INTERVALS = {
     last7Days: {
       dateFormatter: (date: Date) => dateFormatter.format(date),
       startDate: subDays(new Date(), 7),
