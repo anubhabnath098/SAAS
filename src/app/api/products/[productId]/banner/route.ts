@@ -8,12 +8,12 @@ import { createElement } from "react";
 
 export const runtime = "edge";
 
-export async function GET(req: NextRequest, { params }: { params: { productId: string } }) {
+export async function GET(req: NextRequest, context: { params: { productId: string } }) {
   if (req.method !== "GET") {
     return NextResponse.json({ error: "Method Not Allowed" }, { status: 405 });
   }
 
-  const { productId } = await params;
+  const { productId } = context.params;
 
   if (!productId || typeof productId !== "string") {
     return NextResponse.json({ error: "Product ID is required" }, { status: 400 });
