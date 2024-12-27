@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { subscriptionTiers, subscriptionTiersInOrder } from "@/data/subscriptionTiers";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     
     return NextResponse.json(

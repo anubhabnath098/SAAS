@@ -32,12 +32,13 @@ const [isDeletePending, startDeleteTransition] = useTransition()
                     prevProducts ? prevProducts.filter((product) => product.id !== id) : null
                 );
               }
-            } catch (error) {
+            } catch (e) {
               toast({
                 title: "Error",
                 description: "Failed to delete the product",
                 variant: "destructive",
               });
+              console.log(e);
             }
           });
         }
