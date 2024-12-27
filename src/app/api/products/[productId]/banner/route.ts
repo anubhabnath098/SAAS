@@ -5,29 +5,30 @@ import { createProductView } from "@/server/db/productViews";
 import { canRemoveBranding, canShowDiscountBanner } from "@/server/permissions";
 import { NextRequest, NextResponse } from "next/server";
 import { createElement } from "react";
+import { headers } from "next/headers";
 
 export const runtime = "edge";
 
-export async function GET(req: NextRequest, { params }: { params: Promise<{ productId: string }> }) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ productId: string }> }
+) {
   if (req.method !== "GET") {
     return NextResponse.json({ error: "Method Not Allowed" }, { status: 405 });
   }
 
   const { productId } = await params;
-
   if (!productId || typeof productId !== "string") {
     return NextResponse.json({ error: "Product ID is required" }, { status: 400 });
   }
 
   const headersMap = req.headers;
   const requestingUrl = headersMap.get("referer") || headersMap.get("origin");
-  
   if (!requestingUrl) {
     return NextResponse.json({ error: "Referer or origin header is missing" }, { status: 404 });
   }
 
-  const countryCode = getCountryCode(req);
-  
+  const countryCode = await getCountryCode(req);
   if (!countryCode) {
     return NextResponse.json({ error: "Country code is not available" }, { status: 404 });
   }
@@ -44,7 +45,6 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ prod
     }
 
     const canShowBanner = await canShowDiscountBanner(product.clerkUserId);
-
     await createProductView({
       productId: product.id,
       countryId: country?.id,
@@ -66,38 +66,63 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ prod
       await canRemoveBranding(product.clerkUserId)
     );
 
-    return new NextResponse(jsContent, { headers: { "Content-Type": "application/javascript" } });
+    return new NextResponse(jsContent, {
+      headers: { "Content-Type": "application/javascript" },
+    });
   } catch (error) {
     console.error("Error fetching banner data:", error);
     return NextResponse.json({ error: "Failed to fetch banner data" }, { status: 500 });
   }
 }
 
-function getCountryCode(request: NextRequest) {
-  if (request.geo?.country) return request.geo.country;
+async function getCountryCode(request: NextRequest){
+  // Get country from request headers
+  const headersList = await headers();
+  const countryHeader = headersList.get("x-vercel-ip-country") || 
+                       headersList.get("cloudfront-viewer-country") ||
+                       headersList.get("cf-ipcountry");
+                       
+  if (countryHeader) {
+    return countryHeader;
+  }
+
+  // Fallback for development
   if (process.env.NODE_ENV === "development") {
     return env.TEST_COUNTRY_CODE;
   }
+
+  return undefined;
 }
 
-async function getJavaScript(
-  product: {
-    customization: {
-      locationMessage: string;
-      bannerContainer: string;
-      backgroundColor: string;
-      textColor: string;
-      fontSize: string;
-      isSticky: boolean;
-      classPrefix?: string | null;
-    };
-  },
-  country: { name: string },
-  discount: { coupon: string; percentage: number },
-  canRemoveBranding: boolean
-) {
-  const { renderToStaticMarkup } = await import("react-dom/server");
+type Product = {
+  customization: {
+    locationMessage: string;
+    bannerContainer: string;
+    backgroundColor: string;
+    textColor: string;
+    fontSize: string;
+    isSticky: boolean;
+    classPrefix?: string | null;
+  };
+};
 
+type Country = {
+  name: string;
+};
+
+type Discount = {
+  coupon: string;
+  percentage: number;
+};
+
+async function getJavaScript(
+  product: Product,
+  country: Country,
+  discount: Discount,
+  canRemoveBranding: boolean
+): Promise<string> {
+  const { renderToStaticMarkup } = await import("react-dom/server");
+  
   return `
     const banner = document.createElement("div");
     banner.innerHTML = '${renderToStaticMarkup(
