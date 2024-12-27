@@ -1,4 +1,3 @@
-import ClerkIcon from "@/app/(marketing)/_icons/Clerk";
 import {createEnv} from "@t3-oss/env-nextjs";
 import { z } from "zod";
 

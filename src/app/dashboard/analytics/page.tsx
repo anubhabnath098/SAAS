@@ -14,7 +14,7 @@ import { createURL } from "@/lib/utils";
 import TimeZoneDropDownMenuItem from "../_component/TimeZoneDropDownMenuItem";
 import { useToast } from "@/hooks/use-toast";
 import { useUser } from "@clerk/nextjs";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Product } from "../page";
 import { subDays } from "date-fns";
 import { SQL, sql } from "drizzle-orm";

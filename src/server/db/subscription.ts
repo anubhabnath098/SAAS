@@ -3,7 +3,6 @@ import { db } from "@/drizzle/db";
 import { UserSubscriptionTable } from "@/drizzle/schema";
 import { CACHE_TAGS, dbCache, getUserTag, revalidateDbCache } from "@/lib/cache";
 import { SQL } from "drizzle-orm";
-import { PgRelationalQuery } from "drizzle-orm/pg-core/query-builders/query";
 
 export async function createUserSubscription(data: typeof UserSubscriptionTable.$inferInsert){
     const [newSubscription] =  await db.insert(UserSubscriptionTable).values(data)
