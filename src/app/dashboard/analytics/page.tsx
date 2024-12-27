@@ -388,7 +388,7 @@ function getIntervalKey(interval: (typeof CHART_INTERVALS)[keyof typeof CHART_IN
     );
   }
 
-  export const CHART_INTERVALS = {
+const CHART_INTERVALS = {
     last7Days: {
       dateFormatter: (date: Date) => dateFormatter.format(date),
       startDate: subDays(new Date(), 7),
