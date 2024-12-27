@@ -1,5 +1,5 @@
 "use server";
-import { auth, clerkClient } from "@clerk/nextjs/server";
+import { auth} from "@clerk/nextjs/server";
 
 const authenticate = async () => {
   const { userId } = await auth();

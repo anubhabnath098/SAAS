@@ -2,7 +2,7 @@
 import { AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog'
 import { useToast } from '@/hooks/use-toast'
 
-import React, { Dispatch, SetStateAction, useState, useTransition } from 'react'
+import React, { Dispatch, SetStateAction, useTransition } from 'react'
 import { Product } from '../page'
 
 function DeleteProductAlertDialogContent({id, userId,setProducts}:{id:string, userId:string | undefined, setProducts:Dispatch<SetStateAction<Product[] | null>>}) {

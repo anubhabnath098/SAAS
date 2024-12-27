@@ -7,12 +7,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { HasNoPermission } from "@/components/HasPermission";
-// import { CHART_INTERVALS } from "@/server/db/productViews";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ViewsByDayChart from "./_component/charts/ViewsByDayChart";
-import { sql, SQL } from "drizzle-orm";
-import { subDays } from "date-fns";
 
 export type Product = {
   id: string;

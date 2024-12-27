@@ -10,7 +10,7 @@ import { z } from 'zod'
 import Image from 'next/image'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { toast, useToast } from '@/hooks/use-toast'
+import { useToast } from '@/hooks/use-toast'
 import { updateCountryDiscounts } from '@/server/actions/products'
 import { useUser } from '@clerk/nextjs'
 

@@ -1,12 +1,10 @@
 "use server"
 
 import { paidTierNames, subscriptionTiers } from "@/data/subscriptionTiers"
-import { auth, currentUser, User } from "@clerk/nextjs/server"
 import { getUserSubscription } from "@/server/db/subscription"
 import { Stripe } from "stripe"
 import { env as serverEnv } from "@/data/env/server"
 import { env as clientEnv } from "@/data/env/client"
-import { redirect } from "next/navigation"
 
 
 const stripe = new Stripe(serverEnv.STRIPE_SECRET_KEY)

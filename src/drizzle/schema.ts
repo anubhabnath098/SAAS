@@ -1,6 +1,6 @@
 import { subscriptionTiers, TierNames } from "@/data/subscriptionTiers";
 import { relations } from "drizzle-orm";
-import { boolean, index, pgEnum, PgTable, pgTable, primaryKey, real, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { boolean, index, pgEnum, pgTable, primaryKey, real, text, timestamp, uuid } from "drizzle-orm/pg-core";
 const createdAt = timestamp("created_at",{withTimezone:true})
     .notNull()
     .defaultNow()
