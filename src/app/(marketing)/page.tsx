@@ -167,7 +167,6 @@ function PricingCard({
   canAccessAnalytics,
   canCustomizeBanner,
   canRemoveBranding,
-  stripePriceId
 }:(typeof subscriptionTiersInOrder)[number]){
 
   const isMostPopular = name ==="Standard"
