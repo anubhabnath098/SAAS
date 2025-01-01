@@ -10,6 +10,14 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { formatCompactNumber } from '@/lib/formatter'
 import { cn } from '@/lib/utils'
 import { BrandLogo } from '@/components/BrandLogo'
+import SlackIcon from './_icons/SlackIcon'
+import StripeIcon from './_icons/StripeIcon'
+import AirtableIcon from './_icons/AirtableIcon'
+import GithubIcon from './_icons/GithubIcon'
+import NotionIcon from './_icons/NotionIcon'
+import ZendeskIcon from './_icons/ZendeskIcon'
+import ZoomIcon from './_icons/ZoomIcon'
+import ShopifyIcon from './_icons/ShopifyIcon'
 
 function Homepage() {
   return (
@@ -17,7 +25,7 @@ function Homepage() {
       <section className='min-h-screen bg-[radial-gradient(hsl(0,72%,65%,40%),hsl(24,62%,73%,40%),hsl(var(--background))_60%)] 
       flex items-center justify-center text-center text-balance flex-col gap-8 px-4'>
         <h1 className='text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight m-4'>Price Smarter, Sell bigger!</h1>
-        <p className='text-lg lg:text-3xl max-w-screen-xl'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur deleniti, sunt est sequi aspernatur officia unde tenetur laboriosam aliquid corporis dolor suscipit nihil dolore culpa quo eaque, quasi obcaecati! Earum?</p>
+        <p className='text-lg lg:text-3xl max-w-screen-xl'>Welcome to Easy PPP, the affordable solution for displaying custom banners on websites. Our platform allows businesses to easily create and embed eye-catching banners across multiple sites, boosting visibility without breaking the bank. With Easy PPP, you can reach your audience quickly and cost-effectively, enhancing your digital presence with ease.</p>
         <SignUpButton>
           <Button className='text-lg p-6 rounded-xl flex gap-2'>
             Get Started for free <ArrowRightIcon className='size-5'/>
@@ -27,44 +35,66 @@ function Homepage() {
       </section>
       <section className='bg-primary text-primary-foreground'>
         <div className="container py-16 flex flex-col gap-15 px-8 md:py-16">
-            <h2 className='text-3xl text-center text-balance'>Trusted by the top modern companies</h2>.
+            <h2 className='text-3xl text-center text-balance mb-10'>Trusted by the top modern companies</h2>.
             <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-16">
+            <div className="h-[50px] w-full">
               <Link href='https://neon.tech'>
                 <NeonIcon/>
               </Link>
+              </div>
+              <div className="h-[50px] w-full">
               <Link href='https://clerk.com'>
                 <ClerkIcon/>
               </Link>
-              <Link href='https://neon.tech'>
-                <NeonIcon/>
+              </div>
+              <div className="h-[50px] w-full">
+              <Link href='https://slack.com'>
+                <SlackIcon />
               </Link>
-              <Link href='https://clerk.com'>
-                <ClerkIcon/>
+              </div>
+              
+              <div className="h-[50px] w-full">
+              <Link href='https://stripe.com'>
+                <StripeIcon />
               </Link>
-              <Link href='https://neon.tech'>
-                <NeonIcon/>
+              </div>
+              
+              <div className="h-[50px] w-full">
+              <Link href='https://airtable.com'>
+                <AirtableIcon />
               </Link>
-              <Link href='https://clerk.com'>
-                <ClerkIcon/>
+              </div>
+              <div className="h-[50px] w-full">
+              <Link href='https://github.com'>
+                <GithubIcon />
               </Link>
-              <Link href='https://neon.tech'>
-                <NeonIcon/>
+              </div>
+              <div className="h-[50px] w-full">
+              <Link href='https://notion.so'>
+                <NotionIcon />
               </Link>
-              <Link href='https://clerk.com'>
-                <ClerkIcon/>
+              </div>
+              <div className="h-[50px] w-full">
+              <Link href='https://zendesk.com'>
+                <ZendeskIcon />
               </Link>
-              <Link href='https://neon.tech'>
-                <NeonIcon/>
+              </div>
+              <div className="h-[50px] w-full">
+              <Link href='https://zoom.us'>
+                <ZoomIcon />
               </Link>
-              <Link href='https://clerk.com' className='md:max-xl:hidden'>
-                <ClerkIcon/>
+              </div>
+              <div className="h-[50px] w-full">
+              <Link href='https://shopify.com'>
+                <ShopifyIcon />
               </Link>
+              </div>
             </div>
         </div>
           
       </section>
       <section id='pricing' className='px-8 py-16 bg-accent/5 mb-8'>
-      <h2 className='text-4xl text-center text-balance font-semibold'>
+      <h2 className='text-4xl text-center text-balance font-semibold mb-10'>
         Pricing software which pays for itself 20x over
       </h2>
       <div className='grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-screen-xl mx-auto'>

@@ -10,6 +10,7 @@ import { HasNoPermission } from "@/components/HasPermission";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ViewsByDayChart from "./_component/charts/ViewsByDayChart";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export type Product = {
   id: string;
@@ -57,7 +58,9 @@ export default function Products() {
   }, [user]);
   const hasPermission = true;
 
-  if (products === null || user===null || user==undefined) return <p>Loading...</p>;
+  if (products === null || user===null || user==undefined) return (<div className="flex flex-col space-y-3 w-full h-screen">
+    <Skeleton className="h-[60%] w-full rounded-xl" />
+  </div>)
   if (products.length === 0) return <NoProducts />;
 
   return (
@@ -125,7 +128,9 @@ function AnalyticsChart({userId}:{
   }, [userId, toast]);
 
   if (!chartData) {
-    return <div>Loading...</div>;
+    return ((<div className="flex flex-col space-y-3 w-full h-screen">
+      <Skeleton className="h-[30%] w-full rounded-xl" />
+    </div>))
   }
 
   return (

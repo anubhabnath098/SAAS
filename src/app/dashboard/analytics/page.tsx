@@ -19,6 +19,7 @@ import { Product } from "../page";
 import { subDays } from "date-fns";
 import { SQL, sql } from "drizzle-orm";
 import { useSearchParams } from "next/navigation";
+import { Skeleton } from "@/components/ui/skeleton";
 
 
 type ChartType = {
@@ -30,7 +31,7 @@ type ChartType = {
 
 export default function AnalyticsPage(){
     return(
-      <Suspense fallback = {<div>Loading analytics...</div>}>
+      <Suspense fallback = {<div className="flex items-center justify-center h-[100%] w-full"><Skeleton className="w-[95%] h-[90%] rounded-full"/></div>}>
         <AnalyticsPageContent/>
       </Suspense>
     )
@@ -50,8 +51,10 @@ function AnalyticsPageContent(){
     const [timezone, setTimezone] = useState('UTC');
     const [productId, setProductId] = useState('');
     const [hasPermission, setHasPermission] = useState<boolean>(false);
+    const [loading, setLoading] = useState(true);
     const {toast} = useToast();
     useEffect(() => {
+      setLoading(true)
       if (user) {
         const getPermission = async()=>{
             try{
@@ -72,6 +75,8 @@ function AnalyticsPageContent(){
                     description:"Error getting permission",
                     variant:"destructive"
                 })
+            }finally{
+              setLoading(false)
             }
             
         }
@@ -89,6 +94,12 @@ function AnalyticsPageContent(){
         setProductId(productIdParam);
       }
     }, [user, searchParams, toast]);
+
+    if(loading==true){
+      return (<div className="flex flex-col space-y-3 w-full h-screen">
+        <Skeleton className="h-[80%] w-full rounded-xl" />
+      </div>)
+    }
 
     if(userId==null || userId==undefined){
         return;
@@ -143,7 +154,6 @@ function AnalyticsPageContent(){
                 </div>
             )}
         
-        
         </>
 }
 
@@ -188,7 +198,8 @@ function ProductDropDown({
         },[userId, selectedProductId]
     )
     if(products===null){
-        return <p>....loading</p>
+        return ((<div className="">
+        </div>))
     }
 
     return (
@@ -259,7 +270,7 @@ function ViewsByDayCard(
   }, [props.userId, interval, props.timezone, props.productId]);
 
   if (!chartData) {
-    return <div>Loading...</div>;
+    return <div></div>
   }
     return (
         <Card>
@@ -317,7 +328,7 @@ function ViewsByPPPCard(
   }, [props.userId, interval, props.timezone, props.productId]);
 
   if (!chartData) {
-    return <div>Loading...</div>;
+    return <div></div>
   }
     return (
         <Card>
@@ -375,7 +386,7 @@ function ViewsByCountryCard(
   }, [props.userId, interval, props.timezone, props.productId]);
 
   if (!chartData) {
-    return <div>Loading...</div>;
+    return <div></div>
   }
 
     return (

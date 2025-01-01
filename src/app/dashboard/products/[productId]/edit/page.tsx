@@ -8,6 +8,7 @@ import CountryDiscountsForm from "@/app/dashboard/_component/forms/CountryDiscou
 import { ProductCustomizationForm } from "@/app/dashboard/_component/forms/ProductCustomizationForm";
 import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type Product = {
     id: string;
@@ -77,7 +78,9 @@ export default function EditProductPage({
           fetchProduct();
         }
       }, [user, productId]);
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading) return (<div className="flex flex-col space-y-3 w-full h-screen">
+      <Skeleton className="h-[60%] w-full rounded-xl" />
+    </div>)
     if(product===null || !user || !productId){
         return notFound();
     }
@@ -161,7 +164,9 @@ function CountryTab({productId, userId}:{
     fetchCountryGroups();
   }, [productId, userId]);
 
-  if (isLoading) return <p>Loading country groups...</p>;
+  if (isLoading) return (<div className="flex flex-col space-y-3 w-[70vw] h-screen">
+    <Skeleton className="h-[60%] w-full rounded-xl" />
+  </div>)
   if (error) return <p>{error}</p>;
 
     return(
@@ -220,7 +225,9 @@ function CustomizationTab({
     fetchCustomization();
   }, [productId, userId]);
 
-  if (isLoading) return <p>Loading customization...</p>;
+  if (isLoading) return (<div className="flex flex-col space-y-3 w-[70vw] h-screen">
+    <Skeleton className="h-[60%] w-full rounded-xl" />
+  </div>)
   if(!productId || !userId || !customization){
     return notFound();
   }

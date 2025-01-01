@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
 
     const session = await createCustomerPortalSession(userId);
     if(session.error){
-        return NextResponse.json({error:"Error creating customer portal session"}, {status:404});
+        return NextResponse.json({error:session.msg}, {status:404});
     }else{
         return NextResponse.json({url:session.url}, {status:200});
     }

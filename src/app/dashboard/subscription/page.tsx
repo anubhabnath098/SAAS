@@ -21,6 +21,7 @@ import { ReactNode, useEffect, useState } from "react"
 import { useUser } from "@clerk/nextjs"
 import { useRouter } from "next/navigation"
 import { useToast } from "@/hooks/use-toast"
+import { Skeleton } from "@/components/ui/skeleton"
 
 type Subscription = {
   name: string,
@@ -103,7 +104,9 @@ export default function SubscriptionPage() {
       }
     }, [user]);
   
-    if (loading || user==null || user==undefined) return <div>Loading...</div>;
+    if (loading || user==null || user==undefined) return ((<div className="flex flex-col space-y-3 w-full h-screen">
+      <Skeleton className="h-[70%] w-full rounded-xl" />
+    </div>))
     if (error) return <div>{error}</div>;
 
   const handleManageSubscription = async (event: React.FormEvent) => {
@@ -119,20 +122,20 @@ export default function SubscriptionPage() {
         body: JSON.stringify({ userId:user.id }),
       });
 
-      if(!response.ok){
+      
+      //console.log(response);
+      const data = await response.json();
+      if(!data){
         toast({
           title: "Error",
           description: "problem in creating customer portal session",
           variant: "destructive",
         });
       }
-      console.log(response);
-      const data = await response.json();
-      
       if (data.error) {
         toast({
           title: "Error",
-          description: "problem in creating customer portal session",
+          description: data.error,
           variant: "destructive",
         });
       }else if(data.url){
