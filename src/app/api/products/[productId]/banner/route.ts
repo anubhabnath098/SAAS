@@ -7,7 +7,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createElement } from "react";
 import { headers } from "next/headers";
 
-export const runtime = "edge";
+// export const runtime = "edge";
 
 export async function GET(
   req: NextRequest,
