@@ -40,10 +40,10 @@ export async function createCancelSession(userId:string | null | undefined) {
 
 export async function createCustomerPortalSession(userId:string | null | undefined) {
 
-  if (userId == null || userId==undefined) return { error: true }
+  if (userId == null || userId==undefined) return { error: true,  msg:"User Id appears to be not defined or null" }
   const subscription = await getUserSubscription(userId)
   if (subscription?.stripeCustomerId == null) {
-    return { error: true }
+    return { error: true, msg:"You need to buy a subscription to manage it" }
   }
 
   const portalSession = await stripe.billingPortal.sessions.create({

@@ -6,6 +6,7 @@ import { PlusIcon } from "lucide-react"
 import Link from "next/link"
 import { useUser } from "@clerk/nextjs"
 import { useEffect, useState } from "react"
+import { Skeleton } from "@/components/ui/skeleton"
 type Product = {
   id: string;
   name: string;
@@ -40,7 +41,9 @@ export default function Products() {
     }
   }, [user]);
 
-  if (products === null) return <p>Loading...</p>;
+  if (products === null) return (<div className="flex flex-col space-y-3 w-full h-screen">
+    <Skeleton className="h-[80%] w-full rounded-xl" />
+  </div>)
   if (products.length === 0) return <NoProducts />;
 
   return (

@@ -10,12 +10,8 @@ function NavBar() {
             <Link href="/" className='mr-auto'>
                 <BrandLogo/>
             </Link>
-            <Link className='text-lg' href="#">
-            Features</Link>
             <Link className='text-lg' href="#pricing">
             Pricing</Link>
-            <Link className='text-lg' href="#">
-            About</Link>
             <span className='text-lg'>
                 <SignedIn>
                     <Link href="/dashboard">Dashboard</Link>

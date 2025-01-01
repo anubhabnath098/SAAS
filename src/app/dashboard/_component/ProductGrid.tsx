@@ -5,12 +5,13 @@ import { Dialog, DialogTrigger } from '@/components/ui/dialog'
 import { DropdownMenu, DropdownMenuItem } from '@/components/ui/dropdown-menu'
 import { DropdownMenuContent, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import Link from 'next/link'
-import React, { Dispatch, SetStateAction } from 'react'
+import React, { Dispatch, SetStateAction, useState } from 'react'
 import { AddToSiteProductModalContent } from './AddToSiteProductModalContent'
 import { AlertDialog, AlertDialogTrigger } from '@/components/ui/alert-dialog'
 import DeleteProductAlertDialogContent from './DeleteProductAlertDialogContent'
 import { useUser } from '@clerk/nextjs'
 import { Product } from '../page'
+import { DotsHorizontalIcon } from "@radix-ui/react-icons"
 
 function ProductGrid({
     products,
@@ -40,9 +41,12 @@ export function ProductCard({
     url: string,
     description: string | null,
     id: string,
-    setProducts:Dispatch<SetStateAction<Product[] | null>>
+    setProducts: Dispatch<SetStateAction<Product[] | null>>
 }) {
-    const {user} = useUser();
+    const { user } = useUser();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isAlertOpen, setIsAlertOpen] = useState(false);
+
     return (
         <Card>
             <CardHeader>
@@ -52,44 +56,43 @@ export function ProductCard({
                             {name}
                         </Link>
                     </CardTitle>
-                    <Dialog>
-                        <AlertDialog>
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Button variant='outline' className='size-8 p-0'>
-                                        <div className='sr-only'>Action Menu</div>
-                                        <span className='size-4 bold'>⋮</span>
-                                    </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent>
-                                    <DropdownMenuItem asChild>
-                                        <Link href={`/dashboard/products/${id}/edit`}>
-                                            Edit
-                                        </Link>
-                                    </DropdownMenuItem>
-                                    <DialogTrigger asChild>
-                                        <DropdownMenuItem>
-                                            Add to Site
-                                        </DropdownMenuItem>
-                                    </DialogTrigger>
-                                    <DropdownMenuSeparator />
-                                    <AlertDialogTrigger asChild>
-                                        <DropdownMenuItem>
-                                            Delete
-                                        </DropdownMenuItem>
-                                    </AlertDialogTrigger>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
-                                <DeleteProductAlertDialogContent id={id} userId={user?.id} setProducts = {setProducts}/>
-                                <AddToSiteProductModalContent id={id}/>
-                        </AlertDialog>
-                    </Dialog>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="outline" className="size-8 p-0">
+                                <div className="sr-only">Action Menu</div>
+                                <DotsHorizontalIcon className="size-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuItem asChild>
+                                <Link href={`/dashboard/products/${id}/edit`}>Edit</Link>
+                            </DropdownMenuItem>
+                            <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+                                <DropdownMenuItem onSelect={(event) => {
+                                    event.preventDefault();
+                                    setIsModalOpen(true);
+                                }}>
+                                    Add To Site
+                                </DropdownMenuItem>
+                                <AddToSiteProductModalContent id={id} />
+                            </Dialog>
+                            <DropdownMenuSeparator />
+                            <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
+                                <DropdownMenuItem onSelect={(event) => {
+                                    event.preventDefault();
+                                    setIsAlertOpen(true);
+                                }}>
+                                    Delete
+                                </DropdownMenuItem>
+                                <DeleteProductAlertDialogContent id={id} userId={user?.id} setProducts={setProducts} />
+                            </AlertDialog>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </div>
-                <CardDescription>{url}</CardDescription>
+                <CardDescription className='overflow-auto'>{url}</CardDescription>
             </CardHeader>
             {description && <CardContent>{description}</CardContent>}
         </Card>
     );
 }
-
 export default ProductGrid
