@@ -1,38 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## To run this project in your localhost    
+1. npm install
+2. initialise all the environment variables in .env file
+3. npm run dev
 
-## Getting Started
+## screenshots of project
 
-First, run the development server:
+### 1. Home Page
+![Home Page](public/ppp_homepage.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 2. login page
+![Login Page](public/ppp_login.png)  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Dashboard page
+![Dashboard Page](public/ppp_dashboard.png)  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. Add to site url
+![Add to site url pop up](public/ppp_addtosite.png)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 5. edit product page/add product page (url or domain where banner is to be displayed)
+![edit-form Page](public/ppp_editform.png)  
 
-## Learn More
+### 6. Add discount based on parity of country groups  
+![country-group-discount Page](public/ppp_adddiscount.png)
 
-To learn more about Next.js, take a look at the following resources:
+### 7. Customize banner 
+![Customize-banner Page](public/ppp_customizebanner.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 8. Analytics Page
+![Analytics Page](public/ppp_analytics.png) 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 9. Subscription Page
+![Subscription Page](public/ppp_subscription.png)
 
-## Deploy on Vercel
+### 10. Manage Subscription through Stripe
+![stripe Page](public/ppp_stripe.png)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
+### 11. Manage Account through Clerk Page 
+![Manage Account Page](public/ppp_manage_account.png)
 
