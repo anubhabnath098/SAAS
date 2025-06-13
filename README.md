@@ -1,38 +1,154 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💼 Dynamic Discount Banner SaaS Platform
 
-## Getting Started
+A full-stack, scalable SaaS platform that enables users to display dynamic discount banners on their websites, customized by country groups based on Purchasing Power Parity (PPP). Built with Next.js, Drizzle ORM, NeonDB, Clerk, and Stripe.
 
-First, run the development server:
+---
+
+## ✨ Features
+
+* 🎯 **Dynamic Discount Banners** tailored for 10 PPP-based country groups
+* 🌐 **Multi-domain Management** to handle discount configurations across various client websites
+* 🧩 **Custom Banners** with unique coupon codes, discount percentages, and appearance options
+* 📊 **Interactive Dashboard** with real-time analytics & bar graphs segmented by product, time, and location
+* 💳 **Stripe Integration** for subscription management with 4 subscription tiers
+* 🔐 **Clerk Integration** for seamless user authentication and management
+
+---
+
+## 🛠️ Tech Stack
+
+* **Frontend:** Next.js (with Turbopack)
+* **Backend:** API Routes (Next.js)
+* **Database:** NeonDB (PostgreSQL) via Drizzle ORM
+* **Authentication:** Clerk
+* **Payments:** Stripe
+
+---
+
+## 📦 Environment Variables
+
+Create a `.env` file in the root directory with the following keys:
+
+```env
+# Database
+DATABASE_URL=
+
+# Clerk
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+CLERK_WEBHOOK_SECRET=
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL=/auth/callback
+NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL=/auth/callback
+
+# Stripe
+STRIPE_SECRET_KEY=
+STRIPE_BASIC_PLAN_ID=
+STRIPE_STANDARD_PLAN_ID=
+STRIPE_PREMIUM_PLAN_ID=
+STRIPE_WEBHOOK_SECRET=
+
+# Other
+NEXT_PUBLIC_SERVER_URL=http://localhost:3000
+
+# Development
+TEST_COUNTRY_CODE=IN
+```
+
+---
+
+## 🧑‍💻 Getting Started
+
+### 1. Clone and Install Dependencies
+
+```bash
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+npm install
+```
+
+### 2. Set Up Environment
+
+Create a `.env` file in the root with the provided keys above.
+
+### 3. Populate Database
+
+Run the following scripts to initialize the database and update country groups:
+
+```bash
+npm run db:migrate
+npm run db:generate
+npm run db:updateCountryGroups
+```
+
+### 4. Start Stripe Webhook Listener
+
+Make sure the Stripe CLI is installed. Then, run:
+
+```bash
+npm run stripe:webhooks
+```
+
+This forwards webhook events to your local server.
+
+### 5. Start the Dev Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔌 Webhooks Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Stripe Webhooks
 
-## Learn More
+Ensure the Stripe CLI is configured and running. The webhook secret must match `STRIPE_WEBHOOK_SECRET` in your `.env` file.
 
-To learn more about Next.js, take a look at the following resources:
+### Clerk Webhooks
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Set your Clerk webhook endpoint to:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+https://yourdomain.com/api/webhooks/clerk
+```
 
-## Deploy on Vercel
+And use the matching secret `CLERK_WEBHOOK_SECRET` in your `.env`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## screenshots of the project
 
+### 1. Home Page
+![Home Page](public/ppp_homepage.png)
+
+### 2. login page
+![Login Page](public/ppp_login.png)  
+
+### 3. Dashboard page
+![Dashboard Page](public/ppp_dashboard.png)  
+
+### 4. Add to site url
+![Add to site url pop up](public/ppp_addtosite.png)
+
+### 5. edit product page/add product page (url or domain where banner is to be displayed)
+![edit-form Page](public/ppp_editform.png)  
+
+### 6. Add discount based on parity of country groups  
+![country-group-discount Page](public/ppp_adddiscount.png)
+
+### 7. Customize banner 
+![Customize-banner Page](public/ppp_customizebanner.png)
+
+### 8. Analytics Page
+![Analytics Page](public/ppp_analytics.png) 
+
+### 9. Subscription Page
+![Subscription Page](public/ppp_subscription.png)
+
+### 10. Manage Subscription through Stripe
+![stripe Page](public/ppp_stripe.png)
+
+### 11. Manage Account through Clerk Page 
+![Manage Account Page](public/ppp_manage_account.png)
 
